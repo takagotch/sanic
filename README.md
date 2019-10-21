@@ -26,10 +26,12 @@ def test_bp_group_indexing(app: Sanic):
     _ = group[3]
 
 def test_bp_group_with_additional_route_params(app: Sanic):
-  blueprint_1 = Blueprint()
-  blueprint_2 = Blueprint()
+  blueprint_1 = Blueprint("blueprint_1", url_prefix="/bp1")
+  blueprint_2 = Blueprint("blueprint_2", url_prefix="/bp2")
   
-  @blueprint_1.route()
+  @blueprint_1.route(
+    "/request_path", methods=frozenset({"PUT", "POST"}), version=2
+  )
   def blueprint_1_v2_method_with_put_and_post():
     if request.method == "PUT":
       return text("PUT_OK")
