@@ -39,7 +39,7 @@ def test_bp_group_with_additional_route_params(app: Sanic):
       return text("POST_OK")
   
   @blueprint_2.route(
-    "", methods=frozenset(), name="test"
+    "/route/<param>", methods=frozenset({"DELETE", "PATCH"}), name="test"
   )
   def blueprint_2_named_method(request: Request, param):
     if request.method == "DELETE":
@@ -92,10 +92,6 @@ def test_bp_group(app: Sanic):
   blueprint_1 = Blueprint("blueprint_1", url_prefix="/bp1")
   blueprint_2 = Blueprint("blueprint_2", url_prefix="/bp2")
   
-  @blueprint_1.route("/")
-    blueprint_1 = Blueprint()
-    blueprint_2 = Blueprint()
-    
     @blueprint_1.route("/")
     def blueprint_1_default_route(request):
       return text("BP1_OK")
